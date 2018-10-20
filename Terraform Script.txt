@@ -1,0 +1,54 @@
+Install Terraform: binaries from terraform site
+------------------
+mkdir terraform
+cd terraform
+vim aws.tf
+ssh-keygen -f tilak-key -- to generate the key
+
+create a file vim terraform.tfvars
+ ---> AWS_ACCESS_KEY = ""
+      AWS_SECRET_KEY = ""
+------------------
+terraform plan
+terraform apply
+
+
+
+# aws.tf
+variable "AWS_ACCESS_KEY" {}
+variable "AWS_SECRET_KEY" {}
+
+## Terraform  Script
+provider "aws" {
+  region = "ap-southeast-2"
+  access_key = "${var.AWS_ACCESS_KEY}"
+  secret_key = "${var.AWS_SECRET_KEY}"
+} 
+
+
+resource "aws_key_pair" "tilak-key" {
+  key_name   = "tilak-key"
+  public_key = " copy and paste the ssh key-gen"
+}
+
+resource "aws_instance" "web" {
+  ami           = "${data.aws_ami.ubuntu.id}"
+  ami           = "ami-094e2b64ba65e187b"
+  instance_type = "t2.micro"
+  key_name = "${aws_key_pair.tilak-key.key_name}"
+  tags {
+    Name = "Test-Instance"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
