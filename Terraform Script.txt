@@ -16,8 +16,6 @@ https://releases.hashicorp.com/terraform-provider-aws/0.1.2/
 ---------------------
 provider "aws" {
   region = "ap-south-1"
-  access_key = "AKIAI65PBGFFSAHRTE3Q"
-  secret_key = "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"
 } 
 
 resource "aws_instance" "web" {
